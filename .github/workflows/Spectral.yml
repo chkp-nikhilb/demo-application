@@ -8,11 +8,6 @@ jobs:
     steps:        
       - name: Checkout
         uses: actions/checkout@v2
-        
-      - name: Running Spectralops code analysis
-        continue-on-error: true
-        uses: actions/github-script@v6.0.0
-	with:
-		script: |
-			curl -L "https://get.spectralops.io/latest/x/sh?dsn=$SPECTRAL_DSN" | sh
-			$HOME/.spectral/spectral scan --ok --include-tags base,audit3,iac
+      - run: |
+         curl -L "https://get.spectralops.io/latest/x/sh?dsn=$SPECTRAL_DSN" | sh
+         $HOME/.spectral/spectral scan --ok --include-tags base,audit3,iac
