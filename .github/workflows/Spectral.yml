@@ -16,6 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install
-        run: curl -L "https://get.spectralops.io/latest/x/sh?dsn=$SPECTRAL_DSN" | sh
+        run: curl -L "https://get.spectralops.io/latest/x/sh?dsn=${{ secrets.SPECTRAL_DSN }}"  | sh
       - name: Scan
-        run: $HOME/.spectral/spectral scan --ok --include-tags base,audit3
+        run: $HOME/.spectral/spectral scan --ok --include-tags base,audit3,iac
