@@ -14,13 +14,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  code-analysis:
+  build:
+    name: Spectral
     runs-on: ubuntu-latest
-    env:
-      SPECTRAL_DSN: ${{ secrets.SPECTRAL_DSN }}
-    steps:        
-      - name: Checkout
-        uses: actions/checkout@v2
-      - run: |
-         curl -L "https://get.spectralops.io/latest/x/sh?dsn=$SPECTRAL_DSN" | sh
-         $HOME/.spectral/spectral scan --ok --include-tags base,audit3,iac
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install
+        run: curl -L "https://get.spectralops.io/latest/x/sh?dsn=$SPECTRAL_DSN" | sh
+      - name: Scan
+        run: $HOME/.spectral/spectral scan --ok --include-tags base,audit3
