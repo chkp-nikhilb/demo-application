@@ -1,0 +1,17 @@
+name: Spectral Scan
+on: [push,pull_request]
+jobs:
+  code-analysis:
+    runs-on: ubuntu-latest
+    env:
+      SPECTRAL_DSN: ${{ secrets.SPECTRAL_DSN }}
+    steps:        
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Running Spectralops code analysis
+        continue-on-error: true
+        script:
+			- curl -L "https://get.spectralops.io/latest/x/sh?dsn=$SPECTRAL_DSN" | sh
+			# This takes your SPECTRAL_DSN from the variables store in Gitlab CI/CD
+			- $HOME/.spectral/spectral scan --ok --include-tags base,audit3,iac
