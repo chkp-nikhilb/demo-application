@@ -15,7 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install
-        run: curl -L "https://get.spectralops.io/latest/x/sh?dsn=${{ secrets.SPECTRAL_DSN }}"  | sh
-      - name: Scan
-        run: $HOME/.spectral/spectral scan --ok --include-tags base,audit3,iac
+      - shell: bash
+        env:
+          SUPER_SECRET: ${{ secrets.SPECTRAL_DSN }}
+        run: |
+          curl -L "https://get.spectralops.io/latest/x/sh?dsn=${{ secrets.SPECTRAL_DSN }}"  | sh
+          $HOME/.spectral/spectral scan --ok --include-tags base,audit3,iac
