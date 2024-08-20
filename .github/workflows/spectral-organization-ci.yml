@@ -23,4 +23,4 @@ jobs:
           SPECTRAL_DSN: ${{ secrets.SPECTRAL_DSN }}
         run: |
           curl -L "https://get.spectralops.io/latest/x/sh?dsn=${{ secrets.SPECTRAL_DSN }}"  | sh
-          $HOME/.spectral/spectral scan --ok --include-tags base,audit3,iac
+          $HOME/.spectral/spectral scan --include-tags base,audit3,iac
